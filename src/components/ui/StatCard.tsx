@@ -1,16 +1,21 @@
 import { Icon } from "@/components/Icon";
 import { cn } from "@/lib/utils";
+import { CountUp } from "./CountUp";
 
 export function StatCard({
   label,
   value,
   icon,
   tone = "caramel",
+  prefix,
+  decimals = 0,
 }: {
   label: string;
-  value: string | number;
+  value: number | string;
   icon: string;
   tone?: "caramel" | "gold" | "terracotta" | "espresso" | "success";
+  prefix?: string;
+  decimals?: number;
 }) {
   const tones: Record<string, string> = {
     caramel: "from-caramel to-caramel-dark",
@@ -26,7 +31,9 @@ export function StatCard({
       </span>
       <div className="min-w-0">
         <p className="truncate text-sm font-medium text-espresso-500">{label}</p>
-        <p className="text-2xl font-extrabold text-espresso">{value}</p>
+        <p className="text-2xl font-extrabold text-espresso">
+          {typeof value === "number" ? <CountUp value={value} prefix={prefix} decimals={decimals} /> : value}
+        </p>
       </div>
     </div>
   );

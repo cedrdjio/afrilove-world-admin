@@ -15,7 +15,7 @@ export function DonutChart({
 
   return (
     <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6">
-      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="-rotate-90">
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="-rotate-90 animate-scale-in">
         <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="#F0E6D9" strokeWidth={thickness} />
         {data.map((d, i) => {
           const len = (d.value / total) * circumference;

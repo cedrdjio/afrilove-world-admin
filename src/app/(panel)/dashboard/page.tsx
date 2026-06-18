@@ -4,7 +4,7 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { StatCard } from "@/components/ui/StatCard";
 import { DonutChart } from "@/components/charts/DonutChart";
 import { Badge } from "@/components/ui/Badge";
-import { formatCurrency, formatDate } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 
 export const metadata = { title: "Dashboard — AfriLove Admin" };
 export const dynamic = "force-dynamic";
@@ -54,10 +54,10 @@ export default async function DashboardPage() {
 
       {/* KPI cards */}
       <div className="stagger grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <StatCard label="Total users" value={totalUsers.toLocaleString()} icon="Users" tone="caramel" />
-        <StatCard label="Subscribers" value={subscribers.toLocaleString()} icon="BadgeCheck" tone="gold" />
-        <StatCard label="Total earnings" value={formatCurrency(totalEarnings)} icon="Coins" tone="success" />
-        <StatCard label="Pending payouts" value={pendingPayouts.toLocaleString()} icon="Banknote" tone="terracotta" />
+        <StatCard label="Total users" value={totalUsers} icon="Users" tone="caramel" />
+        <StatCard label="Subscribers" value={subscribers} icon="BadgeCheck" tone="gold" />
+        <StatCard label="Total earnings" value={totalEarnings} prefix="$" decimals={2} icon="Coins" tone="success" />
+        <StatCard label="Pending payouts" value={pendingPayouts} icon="Banknote" tone="terracotta" />
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-3">

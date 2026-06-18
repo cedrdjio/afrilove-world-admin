@@ -19,9 +19,9 @@ export function Brand({
     <div className={cn("flex items-center gap-3", className)}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/logo.svg"
+        src="/brand/mark.png"
         alt="AfroLove World"
-        className={cn("h-10 w-10 shrink-0 drop-shadow-sm", animated && "animate-heartbeat")}
+        className={cn("h-11 w-11 shrink-0 object-contain drop-shadow-sm", animated && "animate-heartbeat")}
       />
       {!compact && (
         <div className="leading-none">

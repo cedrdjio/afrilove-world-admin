@@ -18,7 +18,13 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "AfroLove World — Admin",
   description: "Administration panel for AfroLove World — l'amour n'a pas de frontières, il a des racines.",
-  icons: { icon: "/favicon.svg" },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
+    apple: "/brand/mark.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
