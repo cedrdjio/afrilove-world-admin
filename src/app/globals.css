@@ -25,7 +25,12 @@
 
 @layer components {
   .card {
-    @apply rounded-2xl bg-white shadow-card border border-espresso-500/5;
+    @apply rounded-2xl bg-white shadow-card border border-espresso-500/5
+      transition-all duration-300 ease-out;
+  }
+  /* Cards that should lift on hover (opt-in) */
+  .card-hover {
+    @apply hover:-translate-y-1 hover:shadow-lifted;
   }
   .input {
     @apply w-full rounded-xl border border-espresso-500/15 bg-cream-light px-4 py-2.5 text-sm
@@ -40,7 +45,17 @@
       transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60;
   }
   .btn-primary {
-    @apply btn bg-brand-gradient text-white shadow-soft hover:opacity-95;
+    @apply btn relative overflow-hidden bg-brand-gradient text-white shadow-soft
+      transition-all hover:shadow-lifted hover:brightness-110;
+  }
+  /* Subtle sweeping shine on primary buttons */
+  .btn-primary::after {
+    content: "";
+    @apply pointer-events-none absolute inset-0 -translate-x-full;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  }
+  .btn-primary:hover::after {
+    @apply animate-shimmer;
   }
   .btn-gold {
     @apply btn bg-gold-gradient text-espresso shadow-soft hover:opacity-95;
@@ -53,6 +68,40 @@
   }
   .btn-danger {
     @apply btn bg-terracotta text-white hover:bg-terracotta-dark;
+  }
+}
+
+@layer utilities {
+  /* Page content entrance */
+  .page-enter {
+    animation: fade-in-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  /* Staggered children: each direct child fades up slightly later */
+  .stagger > * {
+    animation: fade-in-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .stagger > *:nth-child(1) { animation-delay: 0.04s; }
+  .stagger > *:nth-child(2) { animation-delay: 0.09s; }
+  .stagger > *:nth-child(3) { animation-delay: 0.14s; }
+  .stagger > *:nth-child(4) { animation-delay: 0.19s; }
+  .stagger > *:nth-child(5) { animation-delay: 0.24s; }
+  .stagger > *:nth-child(6) { animation-delay: 0.29s; }
+  .stagger > *:nth-child(7) { animation-delay: 0.34s; }
+  .stagger > *:nth-child(8) { animation-delay: 0.39s; }
+  .stagger > *:nth-child(9) { animation-delay: 0.44s; }
+  /* Animated gradient surface */
+  .bg-pan {
+    background-size: 200% 200%;
+    @apply animate-gradient-pan;
+  }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
   }
 }
 

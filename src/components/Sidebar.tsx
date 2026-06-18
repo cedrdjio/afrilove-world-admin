@@ -23,10 +23,10 @@ export function Sidebar({ user, onNavigate }: { user: SessionUser; onNavigate?: 
   return (
     <aside className="flex h-full w-64 flex-col bg-espresso-gradient text-sand-light/80">
       <div className="flex h-16 items-center px-5">
-        <Brand className="[&_span]:text-white" />
+        <Brand light />
       </div>
 
-      <nav className="flex-1 space-y-6 overflow-y-auto px-3 pb-6">
+      <nav className="stagger flex-1 space-y-6 overflow-y-auto px-3 pb-6">
         {groups.map((group) => (
           <div key={group.title}>
             <p className="px-3 pb-2 text-[0.65rem] font-bold uppercase tracking-wider text-sand-light/40">

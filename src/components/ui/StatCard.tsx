@@ -20,8 +20,8 @@ export function StatCard({
     success: "from-success to-[#157a42]",
   };
   return (
-    <div className="card flex items-center gap-4 p-5">
-      <span className={cn("grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br text-white shadow-soft", tones[tone])}>
+    <div className="card card-hover group flex items-center gap-4 p-5">
+      <span className={cn("grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br text-white shadow-soft transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3", tones[tone])}>
         <Icon name={icon} className="h-6 w-6" />
       </span>
       <div className="min-w-0">

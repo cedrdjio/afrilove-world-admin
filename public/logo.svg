@@ -1,0 +1,59 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AfroLove World">
+  <defs>
+    <linearGradient id="heart" x1="86" y1="150" x2="426" y2="170" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#B9372A"/>
+      <stop offset="0.5" stop-color="#A56B45"/>
+      <stop offset="1" stop-color="#E1AF3A"/>
+    </linearGradient>
+    <linearGradient id="woman" x1="150" y1="210" x2="250" y2="380" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4A3128"/>
+      <stop offset="1" stop-color="#2C1B14"/>
+    </linearGradient>
+    <linearGradient id="man" x1="280" y1="210" x2="372" y2="380" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E9C9A6"/>
+      <stop offset="1" stop-color="#C98B5F"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Heart outline -->
+  <path d="M256 446
+           C150 372 86 318 86 232
+           C86 178 126 138 178 138
+           C214 138 242 158 256 188
+           C270 158 298 138 334 138
+           C386 138 426 178 426 232
+           C426 318 362 372 256 446 Z"
+        fill="none" stroke="url(#heart)" stroke-width="18" stroke-linejoin="round"/>
+
+  <!-- Woman bust (left), facing centre -->
+  <g fill="url(#woman)">
+    <circle cx="206" cy="248" r="42"/>
+    <path d="M150 392
+             c0 -42 26 -74 56 -74
+             c30 0 56 32 56 74
+             c0 6 -4 10 -10 10
+             l-92 0 c-6 0 -10 -4 -10 -10 Z"/>
+    <!-- hair bun -->
+    <circle cx="172" cy="226" r="16"/>
+  </g>
+  <!-- earring -->
+  <circle cx="232" cy="270" r="6" fill="#E1AF3A"/>
+
+  <!-- Man bust (right), facing centre -->
+  <g fill="url(#man)">
+    <circle cx="306" cy="248" r="42"/>
+    <path d="M250 392
+             c0 -42 26 -74 56 -74
+             c30 0 56 32 56 74
+             c0 6 -4 10 -10 10
+             l-92 0 c-6 0 -10 -4 -10 -10 Z"/>
+  </g>
+
+  <!-- Small connecting heart between them -->
+  <path d="M256 300
+           c-7 -10 -24 -8 -24 6
+           c0 10 14 18 24 28
+           c10 -10 24 -18 24 -28
+           c0 -14 -17 -16 -24 -6 Z"
+        fill="#B9372A" opacity="0.9"/>
+</svg>

@@ -53,7 +53,7 @@ export default async function DashboardPage() {
       <PageHeader title={`Welcome back, ${user.name.split(" ")[0]} 👋`} subtitle="Here's what's happening across AfriLove World today." />
 
       {/* KPI cards */}
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="stagger grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard label="Total users" value={totalUsers.toLocaleString()} icon="Users" tone="caramel" />
         <StatCard label="Subscribers" value={subscribers.toLocaleString()} icon="BadgeCheck" tone="gold" />
         <StatCard label="Total earnings" value={formatCurrency(totalEarnings)} icon="Coins" tone="success" />
@@ -120,7 +120,7 @@ export default async function DashboardPage() {
       </div>
 
       {/* Catalog counts */}
-      <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-6">
+      <div className="stagger mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-6">
         <StatCard label="Interests" value={interests} icon="Heart" tone="espresso" />
         <StatCard label="Languages" value={languages} icon="Languages" tone="espresso" />
         <StatCard label="Religions" value={religions} icon="Church" tone="espresso" />

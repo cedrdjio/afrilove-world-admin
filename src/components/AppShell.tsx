@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X, LogOut, ChevronDown } from "lucide-react";
 import { Sidebar } from "./Sidebar";
 import { Toaster } from "./ui/Toaster";
@@ -11,6 +12,7 @@ import { logoutAction } from "@/lib/actions/auth";
 export function AppShell({ user, children }: { user: SessionUser; children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState(false);
+  const pathname = usePathname();
 
   return (
     <Toaster>
@@ -74,7 +76,12 @@ export function AppShell({ user, children }: { user: SessionUser; children: Reac
             </div>
           </header>
 
-          <main className="flex-1 overflow-y-auto p-4 lg:p-8">{children}</main>
+          <main className="flex-1 overflow-y-auto p-4 lg:p-8">
+            {/* Keyed by route so the entrance animation replays on navigation */}
+            <div key={pathname} className="page-enter">
+              {children}
+            </div>
+          </main>
         </div>
       </div>
     </Toaster>

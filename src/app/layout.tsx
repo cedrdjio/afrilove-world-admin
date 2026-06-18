@@ -1,22 +1,29 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 
-const montserrat = Montserrat({
+// Official AfroLove World typography: Playfair Display (titles) + Inter (body).
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-montserrat",
+  variable: "--font-display",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "AfriLove World — Admin",
-  description: "Administration panel for AfriLove World",
+  title: "AfroLove World — Admin",
+  description: "Administration panel for AfroLove World — l'amour n'a pas de frontières, il a des racines.",
   icons: { icon: "/favicon.svg" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={montserrat.variable}>
+    <html lang="fr" className={`${playfair.variable} ${inter.variable}`}>
       <body>{children}</body>
     </html>
   );
