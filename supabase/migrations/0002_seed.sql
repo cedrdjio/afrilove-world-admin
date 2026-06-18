@@ -1,9 +1,12 @@
 -- ============================================================================
--- AfriLove World — seed data
+-- AfroLove World — seed data
 -- Default super-admin + global settings + a little sample catalog data.
 --
 -- DEFAULT LOGIN:  admin@afrilove.world  /  admin@1234
 -- !! Change this password immediately after first login (Profile page). !!
+--
+-- Sample catalog rows are only inserted when their table is empty, so this
+-- file is safe to re-run.
 -- ============================================================================
 
 -- Super admin (bcrypt hash of "admin@1234")
@@ -20,41 +23,63 @@ on conflict (email) do nothing;
 
 -- Settings singleton
 insert into public.settings (id, webname, currency, timezone)
-values (1, 'AfriLove World', '$', 'Africa/Lagos')
+values (1, 'AfroLove World', '$', 'Africa/Lagos')
 on conflict (id) do nothing;
 
 -- Sample relation goals
-insert into public.relation_goals (title, subtitle, status) values
+insert into public.relation_goals (title, subtitle, status)
+select * from (values
   ('Long-term partner', 'Looking for something serious', true),
   ('Friendship', 'New connections and good vibes', true),
   ('Marriage', 'Ready to settle down', true)
-on conflict do nothing;
+) as v(title, subtitle, status)
+where not exists (select 1 from public.relation_goals);
 
 -- Sample interests
-insert into public.interests (title, status) values
+insert into public.interests (title, status)
+select * from (values
   ('Music', true), ('Travel', true), ('Cooking', true),
   ('Fitness', true), ('Movies', true), ('Dancing', true)
-on conflict do nothing;
+) as v(title, status)
+where not exists (select 1 from public.interests);
 
 -- Sample languages
-insert into public.languages (title, status) values
+insert into public.languages (title, status)
+select * from (values
   ('English', true), ('French', true), ('Swahili', true),
   ('Yoruba', true), ('Arabic', true)
-on conflict do nothing;
+) as v(title, status)
+where not exists (select 1 from public.languages);
 
 -- Sample religions
-insert into public.religions (title, status) values
+insert into public.religions (title, status)
+select * from (values
   ('Christianity', true), ('Islam', true), ('Traditional', true), ('Other', true)
-on conflict do nothing;
+) as v(title, status)
+where not exists (select 1 from public.religions);
 
 -- Sample plans
-insert into public.plans (title, amt, day_limit, description, filter_include, audio_video, direct_chat, chat, like_menu, status) values
-  ('Free', 0, 3650, 'Basic access', false, false, false, true, false, true),
-  ('Gold', 9.99, 30, 'Unlock chat, filters and likes', true, false, true, true, true, true),
-  ('Platinum', 19.99, 30, 'Everything in Gold plus audio & video calls', true, true, true, true, true, true)
-on conflict do nothing;
+insert into public.plans (title, amt, day_limit, description, filter_include, audio_video, direct_chat, chat, like_menu, status)
+select * from (values
+  ('Free', 0::numeric, 3650, 'Basic access', false, false, false, true, false, true),
+  ('Gold', 9.99::numeric, 30, 'Unlock chat, filters and likes', true, false, true, true, true, true),
+  ('Platinum', 19.99::numeric, 30, 'Everything in Gold plus audio & video calls', true, true, true, true, true, true)
+) as v(title, amt, day_limit, description, filter_include, audio_video, direct_chat, chat, like_menu, status)
+where not exists (select 1 from public.plans);
 
 -- Sample coin packages
-insert into public.packages (coin, amt, status) values
-  (100, 0.99, true), (550, 4.99, true), (1200, 9.99, true)
-on conflict do nothing;
+insert into public.packages (coin, amt, status)
+select * from (values
+  (100, 0.99::numeric, true), (550, 4.99::numeric, true), (1200, 9.99::numeric, true)
+) as v(coin, amt, status)
+where not exists (select 1 from public.packages);
+
+-- Sample payment gateways
+insert into public.payment_gateways (title, subtitle, status, p_show)
+select * from (values
+  ('Stripe', 'Cards & wallets', true, true),
+  ('PayPal', 'Pay with PayPal', true, true),
+  ('Flutterwave', 'African payments', true, true),
+  ('Paystack', 'Cards & bank transfer', false, false)
+) as v(title, subtitle, status, p_show)
+where not exists (select 1 from public.payment_gateways);

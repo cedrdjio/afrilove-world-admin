@@ -73,14 +73,13 @@ Required:
 Optional (push): `ONESIGNAL_APP_ID`, `ONESIGNAL_REST_API_KEY`.
 
 ### 3. Apply the database schema
-Run the migrations in `supabase/migrations/` against your Supabase project,
-**in order**:
+**Easiest:** open **Supabase Dashboard → SQL Editor → New query**, paste the
+contents of [`supabase/setup.sql`](./supabase/setup.sql), and **Run**. It's
+idempotent (safe to re-run) and does everything: schema + RLS lockdown, a
+default admin, sample data, and the `media` storage bucket.
 
-1. `0001_init.sql` — schema + RLS
-2. `0002_seed.sql` — default admin, settings, sample data
-3. `0003_storage.sql` — public `media` storage bucket
-
-Either paste them into the **Supabase Dashboard → SQL Editor**, or use the CLI:
+Or run the individual migrations in `supabase/migrations/` in order
+(`0001_init.sql`, `0002_seed.sql`, `0003_storage.sql`), or via the CLI:
 ```bash
 supabase db push   # if you've linked the project with the Supabase CLI
 ```
@@ -103,7 +102,12 @@ Password: admin@1234
 ## ☁️ Deploy on Vercel
 
 1. Import the repo into Vercel.
-2. Add the same environment variables in **Project → Settings → Environment Variables**.
+2. In **Project → Settings → Environment Variables**, provide the Supabase URL
+   and service-role key (the `afro_`-prefixed names work as-is) **plus**
+   `AUTH_SECRET`:
+   - `NEXT_PUBLIC_afro_SUPABASE_URL` (or `NEXT_PUBLIC_SUPABASE_URL`)
+   - `afro_SUPABASE_SERVICE_ROLE_KEY` (or `SUPABASE_SERVICE_ROLE_KEY`)
+   - `AUTH_SECRET` — generate with `openssl rand -base64 48`
 3. Deploy. (No build config needed — it's a standard Next.js app.)
 
 ---

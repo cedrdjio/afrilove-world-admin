@@ -1,11 +1,12 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { jwtVerify } from "jose";
+import { getAuthSecret } from "@/lib/env";
 
 const COOKIE_NAME = "afrilove_session";
 const PUBLIC_PATHS = ["/login"];
 
 function secret() {
-  return new TextEncoder().encode(process.env.AUTH_SECRET ?? "");
+  return new TextEncoder().encode(getAuthSecret());
 }
 
 async function isValid(token?: string): Promise<boolean> {

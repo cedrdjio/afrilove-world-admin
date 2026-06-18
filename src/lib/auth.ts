@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { SignJWT, jwtVerify } from "jose";
 import bcrypt from "bcryptjs";
 import { getServiceClient } from "./supabase";
+import { getAuthSecret } from "./env";
 import type { SessionUser, ModuleKey, PermAction } from "./permissions";
 import { can } from "./permissions";
 
@@ -11,9 +12,7 @@ const COOKIE_NAME = "afrilove_session";
 const MAX_AGE = 60 * 60 * 8; // 8 hours
 
 function secret(): Uint8Array {
-  const s = process.env.AUTH_SECRET;
-  if (!s) throw new Error("AUTH_SECRET env var is required for session signing.");
-  return new TextEncoder().encode(s);
+  return new TextEncoder().encode(getAuthSecret());
 }
 
 /** Create a signed session cookie for the given user. */
