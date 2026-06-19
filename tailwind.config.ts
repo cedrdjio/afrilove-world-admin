@@ -53,8 +53,8 @@ const config: Config = {
         info: "#0E7490",
       },
       fontFamily: {
-        sans: ["var(--font-sans)", "Inter", "system-ui", "sans-serif"],
-        display: ["var(--font-display)", "Playfair Display", "Georgia", "serif"],
+        sans: ["var(--font-sans)", "Montserrat", "system-ui", "sans-serif"],
+        display: ["var(--font-sans)", "Montserrat", "system-ui", "sans-serif"],
       },
       backgroundImage: {
         "brand-gradient": "linear-gradient(135deg,#A56B45,#2C1B14)",

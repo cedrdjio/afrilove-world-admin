@@ -1,48 +1,40 @@
 import { cn } from "@/lib/utils";
 
 /**
- * AfroLove World brand lockup — the heart logo + wordmark.
- * The logo lives at /public/logo.svg; drop in the official PNG there to swap it.
+ * AfriLove World brand lockup — the official logo provided by the brand.
+ *   - default:  full horizontal lockup (heart + "AFRILOVE WORLD") → public/brand/logo-horizontal.png
+ *   - compact:  heart mark only                                   → public/brand/mark.png
+ *
+ * Both are generated from public/logo.png. The wordmark is baked into the
+ * artwork, so we never render separate text — what you see is the real logo.
  */
 export function Brand({
   className,
   compact = false,
-  light = false,
   animated = true,
 }: {
   className?: string;
   compact?: boolean;
+  /** kept for backwards-compat with callers; no longer used */
   light?: boolean;
   animated?: boolean;
 }) {
-  return (
-    <div className={cn("flex items-center gap-3", className)}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
+  if (compact) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
       <img
         src="/brand/mark.png"
         alt="AfriLove World"
-        className={cn("h-11 w-11 shrink-0 object-contain drop-shadow-sm", animated && "animate-heartbeat")}
+        className={cn("h-10 w-10 shrink-0 object-contain", animated && "animate-heartbeat", className)}
       />
-      {!compact && (
-        <div className="leading-none">
-          <span
-            className={cn(
-              "block font-display text-lg font-extrabold tracking-tight",
-              light ? "text-white" : "text-espresso",
-            )}
-          >
-            AFROLOVE
-          </span>
-          <span
-            className={cn(
-              "block text-[0.7rem] font-semibold uppercase tracking-[0.35em]",
-              light ? "text-gold" : "text-caramel",
-            )}
-          >
-            World
-          </span>
-        </div>
-      )}
-    </div>
+    );
+  }
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/brand/logo-horizontal.png"
+      alt="AfriLove World"
+      className={cn("h-9 w-auto object-contain", className)}
+    />
   );
 }

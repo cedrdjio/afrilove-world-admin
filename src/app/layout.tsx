@@ -1,35 +1,29 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 
-// Official AfroLove World typography: Playfair Display (titles) + Inter (body).
-const playfair = Playfair_Display({
+// Brand typography. Gotham (the requested primary) is a commercial font not
+// available on Google Fonts; Montserrat is its closest free, geometric match
+// and is the requested secondary — so we use it across the whole UI.
+const montserrat = Montserrat({
   subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
   variable: "--font-sans",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "AfroLove World — Admin",
-  description: "Administration panel for AfroLove World — l'amour n'a pas de frontières, il a des racines.",
+  title: "AfriLove World — Admin",
+  description: "Administration panel for AfriLove World — l'amour n'a pas de frontières, il a des racines.",
   icons: {
-    icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon.png", type: "image/png" },
-    ],
+    icon: [{ url: "/favicon.png", type: "image/png" }],
     apple: "/brand/mark.png",
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${playfair.variable} ${inter.variable}`}>
+    <html lang="fr" className={montserrat.variable}>
       <body>{children}</body>
     </html>
   );
