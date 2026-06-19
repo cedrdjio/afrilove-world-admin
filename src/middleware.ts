@@ -40,5 +40,5 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   // Protect everything except Next internals, the API auth route and static assets.
-  matcher: ["/((?!_next/static|_next/image|favicon.svg|favicon.ico|.*\\.(?:png|jpg|jpeg|svg|gif|webp)$).*)"],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.svg|favicon.ico|.*\\.(?:png|jpg|jpeg|svg|gif|webp)$).*)"],
 };

@@ -23,13 +23,34 @@ export async function loginAction(_prev: LoginState | null, form: FormData): Pro
     return { ok: false, message: parsed.error.issues[0]?.message ?? "Invalid input." };
   }
 
-  const user = await verifyCredentials(parsed.data.email, parsed.data.password);
-  if (!user) {
-    return { ok: false, message: "Invalid email or password." };
+  let user;
+  try {
+    user = await verifyCredentials(parsed.data.email, parsed.data.password);
+  } catch (e) {
+    // Most commonly: missing/invalid Supabase env vars on the server.
+    console.error("[login] credential check failed:", e);
+    return {
+      ok: false,
+      message:
+        "Erreur de configuration serveur : connexion à la base impossible. Vérifiez NEXT_PUBLIC_SUPABASE_URL et SUPABASE_SERVICE_ROLE_KEY sur Vercel.",
+    };
   }
 
-  await createSession(user);
-  redirect("/dashboard");
+  if (!user) {
+    return { ok: false, message: "Email ou mot de passe invalide." };
+  }
+
+  try {
+    await createSession(user);
+  } catch (e) {
+    console.error("[login] session creation failed:", e);
+    return {
+      ok: false,
+      message: "Erreur de configuration serveur : AUTH_SECRET manquant sur Vercel.",
+    };
+  }
+
+  redirect("/dashboard"); // throws NEXT_REDIRECT (handled by Next) — keep outside try/catch
 }
 
 export async function logoutAction(): Promise<void> {
