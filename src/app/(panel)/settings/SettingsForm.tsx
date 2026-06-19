@@ -4,6 +4,7 @@ import { useActionState, useEffect } from "react";
 import { saveSettings } from "@/lib/actions/admin";
 import type { ActionResult } from "@/lib/actions/resource";
 import { SubmitButton } from "@/components/ui/SubmitButton";
+import { ImageInput } from "@/components/ui/ImageInput";
 import { useToast } from "@/components/ui/Toaster";
 
 function Section({ title, desc, children }: { title: string; desc?: string; children: React.ReactNode }) {
@@ -48,8 +49,7 @@ export function SettingsForm({ s }: { s: any }) {
         <Text name="timezone" label="Timezone" value={s.timezone} placeholder="Africa/Lagos" />
         <div>
           <label className="label">Logo</label>
-          <input name="weblogo" type="file" accept="image/*" className="input" />
-          {s.weblogo && <p className="mt-1 text-xs text-espresso-500">Current logo set.</p>}
+          <ImageInput name="weblogo" defaultValue={s.weblogo ?? null} />
         </div>
         <YesNo name="mode" label="Maintenance mode" value={s.mode} />
         <YesNo name="fmode" label="Free premium mode" value={s.fmode} />

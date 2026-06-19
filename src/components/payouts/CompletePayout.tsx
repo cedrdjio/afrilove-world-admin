@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { CheckCircle2, X } from "lucide-react";
 import { completePayout } from "@/lib/actions/payouts";
+import { ImageInput } from "@/components/ui/ImageInput";
 import { useToast } from "@/components/ui/Toaster";
 
 export function CompletePayout({ id }: { id: number }) {
@@ -36,9 +37,8 @@ export function CompletePayout({ id }: { id: number }) {
               className="space-y-4"
             >
               <div>
-                <label className="label">Proof of payment (optional)</label>
-                <input name="proof" type="file" accept="image/*" className="input" />
-                <p className="mt-1 text-xs text-espresso-500">Upload a screenshot/receipt of the transfer.</p>
+                <label className="label">Preuve de paiement (optionnel)</label>
+                <ImageInput name="proof" help="Capture/reçu du transfert." />
               </div>
               <div className="flex justify-end gap-2">
                 <button type="button" onClick={() => setOpen(false)} className="btn-ghost">Cancel</button>

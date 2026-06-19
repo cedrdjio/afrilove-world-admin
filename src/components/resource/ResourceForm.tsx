@@ -1,13 +1,12 @@
 "use client";
 
-import { useActionState, useRef, useState } from "react";
+import { useActionState, useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { UploadCloud } from "lucide-react";
 import { saveResource, type ActionResult } from "@/lib/actions/resource";
 import type { ResourceDef, ResourceField } from "@/lib/resources";
 import { SubmitButton } from "@/components/ui/SubmitButton";
+import { ImageInput } from "@/components/ui/ImageInput";
 import { useToast } from "@/components/ui/Toaster";
 
 export function ResourceForm({
@@ -72,7 +71,12 @@ function Field({ field, value }: { field: ResourceField; value: any }) {
         </div>
       );
     case "image":
-      return <ImageField field={field} value={value} />;
+      return (
+        <div>
+          <label className="label">{field.label}</label>
+          <ImageInput name={field.name} defaultValue={value ?? null} required={field.required} help={field.help} />
+        </div>
+      );
     default:
       return (
         <div>
@@ -97,38 +101,3 @@ function Switch({ field, value }: { field: ResourceField; value: boolean }) {
   );
 }
 
-function ImageField({ field, value }: { field: ResourceField; value: any }) {
-  const [preview, setPreview] = useState<string | null>(value ?? null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  return (
-    <div>
-      <label className="label">{field.label}</label>
-      <input type="hidden" name={`${field.name}_existing`} value={value ?? ""} />
-      <div className="flex items-center gap-4">
-        <div className="grid h-20 w-20 shrink-0 place-items-center overflow-hidden rounded-xl border border-espresso-500/10 bg-cream">
-          {preview ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={preview} alt="" className="h-full w-full object-cover" />
-          ) : (
-            <UploadCloud className="h-6 w-6 text-espresso-500/40" />
-          )}
-        </div>
-        <div>
-          <button type="button" onClick={() => inputRef.current?.click()} className="btn-outline">Choose image</button>
-          <p className="mt-1 text-xs text-espresso-500">JPG, PNG, WEBP, GIF or SVG. Max 5MB.</p>
-        </div>
-        <input
-          ref={inputRef}
-          name={field.name}
-          type="file"
-          accept="image/*"
-          className="hidden"
-          onChange={(e) => {
-            const f = e.target.files?.[0];
-            if (f) setPreview(URL.createObjectURL(f));
-          }}
-        />
-      </div>
-    </div>
-  );
-}

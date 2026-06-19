@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { savePaymentGateway } from "@/lib/actions/admin";
 import type { ActionResult } from "@/lib/actions/resource";
 import { SubmitButton } from "@/components/ui/SubmitButton";
+import { ImageInput } from "@/components/ui/ImageInput";
 import { useToast } from "@/components/ui/Toaster";
 
 export function PaymentForm({ gateway }: { gateway: any }) {
@@ -33,7 +34,7 @@ export function PaymentForm({ gateway }: { gateway: any }) {
       </div>
       <div>
         <label className="label">Logo</label>
-        <input name="img" type="file" accept="image/*" className="input" />
+        <ImageInput name="img" defaultValue={gateway.img ?? null} />
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
