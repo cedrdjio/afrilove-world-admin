@@ -13,7 +13,7 @@ export default function LoginPage() {
       <div className="relative z-10 grid min-h-screen lg:grid-cols-2">
         {/* Brand panel */}
         <div className="hidden flex-col justify-between p-12 lg:flex">
-          <Brand className="h-11" />
+          <Brand className="h-11 self-start" />
           <div className="page-enter max-w-md">
             <h1 className="text-4xl font-extrabold leading-tight text-espresso">
               L&apos;amour n&apos;a pas de <span className="text-caramel">frontières</span>.
@@ -30,8 +30,8 @@ export default function LoginPage() {
         {/* Form panel */}
         <div className="flex items-center justify-center p-6">
           <div className="card w-full max-w-md animate-scale-in p-8">
-            <div className="mb-6 flex justify-center lg:hidden">
-              <Brand className="h-12" />
+            <div className="mb-6 lg:hidden">
+              <Brand className="h-11" />
             </div>
             <h2 className="text-2xl font-bold text-espresso">Bon retour 👋</h2>
             <p className="mt-1 text-sm text-espresso-500">Connectez-vous à votre espace d&apos;administration.</p>
