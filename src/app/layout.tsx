@@ -15,10 +15,8 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: "AfriLove World — Admin",
   description: "Administration panel for AfriLove World — l'amour n'a pas de frontières, il a des racines.",
-  icons: {
-    icon: [{ url: "/favicon.png", type: "image/png" }],
-    apple: "/brand/mark.png",
-  },
+  // Favicon is provided by the App Router convention file src/app/icon.png.
+  icons: { apple: "/brand/mark.png" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
