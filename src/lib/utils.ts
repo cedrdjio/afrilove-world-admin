@@ -31,6 +31,12 @@ export function formatDateTime(value: string | Date | null | undefined) {
   });
 }
 
+/** Split the legacy pipe-separated gallery field (other_pic) into clean URLs. */
+export function splitGallery(other_pic: string | null | undefined): string[] {
+  if (!other_pic) return [];
+  return other_pic.split("|").map((s) => s.trim()).filter(Boolean);
+}
+
 export function initials(name?: string | null) {
   if (!name) return "?";
   return name.trim().split(/\s+/).slice(0, 2).map((w) => w[0]?.toUpperCase()).join("");

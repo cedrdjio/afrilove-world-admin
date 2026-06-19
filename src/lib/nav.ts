@@ -24,6 +24,8 @@ export const NAV: NavGroup[] = [
     title: "Members",
     items: [
       { label: "Users", href: "/users", icon: "Users", module: "ulist" },
+      { label: "Vérification KYC", href: "/verification", icon: "ScanFace", module: "ulist" },
+      { label: "Médias", href: "/media", icon: "Images", module: "ulist" },
       { label: "Fake users", href: "/fake-users", icon: "UserPlus", module: "fakeuser" },
       { label: "Reports", href: "/reports", icon: "Flag", module: "report" },
     ],

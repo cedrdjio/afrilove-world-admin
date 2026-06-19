@@ -31,3 +31,35 @@ export async function uploadImage(file: File, folder = "uploads"): Promise<strin
   const { data } = sb.storage.from(BUCKET).getPublicUrl(key);
   return data.publicUrl;
 }
+
+/**
+ * Delete an image from Supabase Storage given its public URL.
+ * Safely no-ops for URLs that don't belong to this project's storage
+ * (e.g. images hosted elsewhere) — the caller still clears the DB reference.
+ * Returns true if a storage object was removed.
+ */
+export async function deleteImageByUrl(url: string | null | undefined): Promise<boolean> {
+  if (!url) return false;
+  // Public storage URLs look like:
+  //   https://<ref>.supabase.co/storage/v1/object/public/<bucket>/<path>
+  const marker = "/storage/v1/object/public/";
+  const idx = url.indexOf(marker);
+  if (idx === -1) return false;
+
+  const rest = url.slice(idx + marker.length); // "<bucket>/<path>"
+  const slash = rest.indexOf("/");
+  if (slash === -1) return false;
+  const bucket = rest.slice(0, slash);
+  const path = decodeURIComponent(rest.slice(slash + 1));
+  if (!path) return false;
+
+  const sb = getServiceClient();
+  const { error } = await sb.storage.from(bucket).remove([path]);
+  if (error) {
+    // Don't block the moderation action if storage cleanup fails.
+    console.error("[storage] delete failed:", error.message);
+    return false;
+  }
+  return true;
+}
+
