@@ -30,8 +30,8 @@ export default function LoginPage() {
         {/* Form panel */}
         <div className="flex items-center justify-center p-6">
           <div className="card w-full max-w-md animate-scale-in p-8">
-            <div className="mb-6 lg:hidden">
-              <Brand className="h-10" />
+            <div className="mb-6 flex justify-center lg:hidden">
+              <Brand className="h-12" />
             </div>
             <h2 className="text-2xl font-bold text-espresso">Bon retour 👋</h2>
             <p className="mt-1 text-sm text-espresso-500">Connectez-vous à votre espace d&apos;administration.</p>
