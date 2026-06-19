@@ -56,9 +56,9 @@ const balanceSchema = z.object({
 /** Adjust a user's wallet or coin balance and write a transaction log row. */
 export async function adjustBalance(form: FormData): Promise<ActionResult> {
   const kind = String(form.get("kind"));
-  const module = kind === "coin" ? "coin" : "wallet";
+  const permModule = kind === "coin" ? "coin" : "wallet";
   try {
-    await requirePermission(module, "Update");
+    await requirePermission(permModule, "Update");
   } catch {
     return { ok: false, message: "Permission denied." };
   }

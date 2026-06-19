@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { requireUser } from "@/lib/auth";
 import { getServiceClient } from "@/lib/supabase";
 import { PageHeader } from "@/components/ui/PageHeader";
@@ -24,7 +25,7 @@ export default async function DashboardPage() {
   const [
     totalUsers, maleUsers, femaleUsers, fakeUsers, verifiedUsers,
     subscribers, interests, languages, religions, goals, plans, gifts, packages, faqs, pages,
-    pendingPayouts,
+    pendingPayouts, pendingKyc,
   ] = await Promise.all([
     count("users"),
     count("users", (q) => q.eq("gender", "MALE")),
@@ -35,6 +36,7 @@ export default async function DashboardPage() {
     count("interests"), count("languages"), count("religions"), count("relation_goals"),
     count("plans"), count("gifts"), count("packages"), count("faqs"), count("pages"),
     count("payouts", (q) => q.eq("status", "pending")),
+    count("users", (q) => q.eq("is_verify", 1).not("identity_picture", "is", null)),
   ]);
 
   const { data: earningsRows } = await sb.from("plan_purchase_history").select("amount");
@@ -79,6 +81,10 @@ export default async function DashboardPage() {
             <span className="font-medium text-espresso-500">Verified profiles</span>
             <Badge tone="success">{verifiedUsers.toLocaleString()}</Badge>
           </div>
+          <Link href="/verification" className="mt-2 flex items-center justify-between rounded-xl bg-cream px-4 py-3 text-sm transition hover:bg-cream-dark">
+            <span className="font-medium text-espresso-500">KYC en attente</span>
+            <Badge tone={pendingKyc > 0 ? "warning" : "neutral"}>{pendingKyc.toLocaleString()}</Badge>
+          </Link>
         </div>
 
         {/* Recent users */}

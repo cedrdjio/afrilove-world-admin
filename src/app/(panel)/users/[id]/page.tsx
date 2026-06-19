@@ -7,7 +7,9 @@ import { can } from "@/lib/permissions";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Badge } from "@/components/ui/Badge";
 import { BalanceForm } from "@/components/users/BalanceForm";
-import { formatCurrency, formatDate, formatDateTime, initials } from "@/lib/utils";
+import { VerifyActions } from "@/components/users/UserActions";
+import { DeletableImage } from "@/components/media/DeletableImage";
+import { formatCurrency, formatDate, formatDateTime, initials, splitGallery } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
@@ -31,6 +33,8 @@ export default async function UserDetailPage({ params }: { params: Promise<{ id:
 
   const canWallet = can(me, "wallet", "Update");
   const canCoin = can(me, "coin", "Update");
+  const canEdit = can(me, "ulist", "Update");
+  const gallery = splitGallery(u.other_pic);
 
   return (
     <div>
@@ -80,6 +84,29 @@ export default async function UserDetailPage({ params }: { params: Promise<{ id:
               <Info label="Referral code" value={u.code} />
               <Info label="Registered" value={formatDateTime(u.rdate)} />
             </dl>
+          </section>
+
+          {/* Photos & KYC */}
+          <section className="card p-6">
+            <div className="mb-4 flex items-center justify-between">
+              <h3 className="text-lg font-bold">Photos & document d&apos;identité</h3>
+              <VerifyActions id={numId} verify={u.is_verify} canEdit={canEdit} />
+            </div>
+            {!u.profile_pic && gallery.length === 0 && !u.identity_picture ? (
+              <p className="py-4 text-sm text-espresso-500">Aucune image pour ce membre.</p>
+            ) : (
+              <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-5">
+                {u.profile_pic && (
+                  <DeletableImage userId={numId} url={u.profile_pic} kind="profile" label="Profil" canDelete={canEdit} />
+                )}
+                {gallery.map((url) => (
+                  <DeletableImage key={url} userId={numId} url={url} kind="gallery" canDelete={canEdit} />
+                ))}
+                {u.identity_picture && (
+                  <DeletableImage userId={numId} url={u.identity_picture} kind="identity" label="KYC" canDelete={canEdit} />
+                )}
+              </div>
+            )}
           </section>
 
           {/* Transactions */}
